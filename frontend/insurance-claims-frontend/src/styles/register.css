@@ -1,0 +1,385 @@
+/* =========================================
+   REGISTER PAGE
+========================================= */
+
+.register-page,
+.register-page * {
+  box-sizing: border-box;
+}
+
+.register-page {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 12px 16px;
+  margin: 0;
+
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%);
+
+  font-family: Arial, sans-serif;
+}
+
+/* =========================================
+   REGISTER CARD
+========================================= */
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+
+  padding: 22px 28px;
+  margin: 0;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.1);
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.register-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.register-icon {
+  width: 48px;
+  height: 48px;
+
+  margin: 0 auto 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #e0edff;
+  color: #2563eb;
+
+  border-radius: 13px;
+}
+
+.register-icon svg {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.register-header h1 {
+  margin: 0 0 7px;
+
+  font-size: 25px;
+  line-height: 1.2;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.register-subtitle {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  color: #64748b;
+}
+
+/* =========================================
+   FORM
+========================================= */
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  width: 100%;
+  margin: 0;
+}
+
+.register-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  margin: 0;
+}
+
+.register-field label {
+  font-size: 13px;
+  font-weight: 600;
+
+  color: #334155;
+}
+
+.register-field input {
+  width: 100%;
+  height: 40px;
+
+  padding: 0 12px;
+  margin: 0;
+
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #0f172a;
+
+  font-size: 14px;
+  font-family: inherit;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.register-field input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.register-field input::placeholder {
+  color: #94a3b8;
+}
+
+.register-field input:disabled {
+  background: #f1f5f9;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   PRIMARY BUTTON
+========================================= */
+
+.register-button {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+
+  padding: 10px 16px;
+  margin-top: 5px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    transform 0.2s;
+}
+
+.register-button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.register-button:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.register-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   ERROR / SUCCESS
+========================================= */
+
+.register-error {
+  padding: 11px 12px;
+  margin: 0 0 12px;
+
+  border: 1px solid #fecaca;
+  border-radius: 9px;
+
+  background: #fef2f2;
+  color: #b91c1c;
+
+  font-size: 13px;
+}
+
+.register-success {
+  padding: 12px;
+  margin-bottom: 14px;
+
+  border: 1px solid #bbf7d0;
+  border-radius: 9px;
+
+  background: #f0fdf4;
+  color: #15803d;
+
+  font-size: 13px;
+}
+
+.register-success-section {
+  width: 100%;
+}
+
+/* =========================================
+   LOGIN SECTION
+========================================= */
+
+.register-login-section {
+  width: 100%;
+  margin-top: 16px;
+  text-align: center;
+}
+
+.register-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 14px 0;
+
+  color: #94a3b8;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.register-divider::before,
+.register-divider::after {
+  content: "";
+  flex: 1;
+
+  height: 1px;
+  background: #e2e8f0;
+}
+
+.register-login-text {
+  margin: 0 0 10px;
+
+  font-size: 13px;
+  color: #64748b;
+}
+
+.register-login-button {
+  display: block;
+  width: 100%;
+  min-height: 42px;
+
+  padding: 10px 16px;
+
+  border: 1px solid #2563eb;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #2563eb;
+
+  font-size: 14px;
+  font-family: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.register-login-button:hover:not(:disabled) {
+  background: #eff6ff;
+  border-color: #1d4ed8;
+}
+
+.register-login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.register-footer {
+  margin: 18px 0 0;
+
+  text-align: center;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: #94a3b8;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 12px;
+  }
+
+  .register-card {
+    padding: 18px 20px;
+  }
+
+  .register-header h1 {
+    font-size: 22px;
+  }
+}
+
+/* =========================================
+   SHORT SCREENS
+========================================= */
+
+@media (max-height: 750px) {
+  .register-page {
+    align-items: flex-start;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .register-card {
+    padding: 16px 24px;
+  }
+
+  .register-header {
+    margin-bottom: 12px;
+  }
+
+  .register-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
+  }
+
+  .register-form {
+    gap: 9px;
+  }
+
+  .register-field input {
+    height: 36px;
+  }
+
+  .register-login-section {
+    margin-top: 10px;
+  }
+
+  .register-divider {
+    margin: 10px 0;
+  }
+
+  .register-footer {
+    margin-top: 12px;
+  }
+}

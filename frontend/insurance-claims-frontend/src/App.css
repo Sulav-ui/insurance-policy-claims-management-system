@@ -1,0 +1,246 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f6f9;
+  color: #1e293b;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =====================================
+   CLAIM HISTORY POPUP TABLE
+===================================== */
+
+.claim-history-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-top: 16px;
+}
+
+.claim-history-table th,
+.claim-history-table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #e5e7eb;
+  overflow-wrap: anywhere;
+}
+
+.claim-history-table th {
+  background-color: #f8fafc;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.claim-history-table td {
+  color: #374151;
+  font-size: 14px;
+}
+
+.claim-history-table th:nth-child(1),
+.claim-history-table td:nth-child(1) {
+  width: 30%;
+}
+
+.claim-history-table th:nth-child(2),
+.claim-history-table td:nth-child(2) {
+  width: 30%;
+}
+
+.claim-history-table th:nth-child(3),
+.claim-history-table td:nth-child(3) {
+  width: 40%;
+}
+
+.claim-history-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* =====================================
+   CLAIM HISTORY TIMELINE
+===================================== */
+
+.claim-history-current {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.claim-history-status {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: #e2e8f0;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.claim-history-status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.claim-history-status.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.claim-history-status.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Timeline container */
+
+.claim-history-timeline {
+  position: relative;
+  margin-top: 24px;
+  padding-left: 14px;
+}
+
+.claim-history-timeline-item {
+  position: relative;
+  padding: 0 0 26px 28px;
+  border-left: 2px solid #e2e8f0;
+}
+
+.claim-history-timeline-item:last-child {
+  border-left-color: transparent;
+  padding-bottom: 0;
+}
+
+/* Timeline dots */
+
+.claim-history-timeline-dot {
+  position: absolute;
+  left: -9px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #64748b;
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px #cbd5e1;
+}
+
+.claim-history-timeline-dot.approved {
+  background: #16a34a;
+  box-shadow: 0 0 0 2px #86efac;
+}
+
+.claim-history-timeline-dot.rejected {
+  background: #dc2626;
+  box-shadow: 0 0 0 2px #fca5a5;
+}
+
+.claim-history-timeline-dot.pending {
+  background: #d97706;
+  box-shadow: 0 0 0 2px #fcd34d;
+}
+
+/* Timeline cards */
+
+.claim-history-timeline-content {
+  background: #f8fafc;
+  padding: 18px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.claim-history-timeline-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.claim-history-timeline-header strong {
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.claim-history-timeline-content p {
+  margin: 12px 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+}
+
+.claim-history-timeline-date {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* Empty state */
+
+.claim-history-empty {
+  padding: 24px;
+  text-align: center;
+  background: #f8fafc;
+  border-radius: 10px;
+}
+
+.claim-history-empty p {
+  font-weight: 600;
+  color: #334155;
+}
+
+.claim-history-empty span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Footer */
+
+.claim-history-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.claim-history-close-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.claim-history-close-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Responsive */
+
+@media (max-width: 480px) {
+  .claim-history-timeline-content {
+    padding: 12px;
+  }
+
+  .claim-history-timeline-header {
+    align-items: flex-start;
+  }
+}

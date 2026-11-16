@@ -1,0 +1,30 @@
+# Frontend
+node_modules/
+dist/
+dist-ssr/
+
+# Backend
+target/
+.classpath
+.project
+.settings/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.jks
+*.p12
+
+# IDE
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db

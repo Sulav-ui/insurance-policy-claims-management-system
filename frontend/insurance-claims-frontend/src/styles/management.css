@@ -1,0 +1,1007 @@
+/* =========================================
+   INSURANCE MANAGEMENT SYSTEM
+   ========================================= */
+
+/* Page headings */
+.main-content h2 {
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+/* Forms */
+.main-content form {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+}
+
+.main-content form h2 {
+  width: 100%;
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.main-content input,
+.main-content select {
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  color: #1e293b;
+  min-width: 180px;
+  flex: 1;
+}
+
+.main-content input:focus,
+.main-content select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* General buttons */
+.main-content button {
+  padding: 10px 16px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.main-content button:hover {
+  background: #1d4ed8;
+}
+
+.main-content button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.main-content hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 24px 0;
+}
+
+/* Tables */
+.main-content table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.main-content th {
+  background: #eef2f7;
+  color: #334155;
+  text-align: left;
+  font-size: 13px;
+  padding: 16px;
+  border: none;
+}
+
+.main-content td {
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+}
+
+.main-content tr:hover td {
+  background: #f8fafc;
+}
+
+.main-content td button {
+  margin-right: 8px;
+  padding: 8px 12px;
+}
+
+/* Search and filters */
+.search-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.search-container input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  font-size: 14px;
+}
+
+.search-container select {
+  padding: 12px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: white;
+  min-width: 180px;
+}
+
+.search-container input:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.pagination span {
+  font-weight: 600;
+  color: #475569;
+}
+
+.pagination button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* Status badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-badge.active,
+.status-badge.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.pending,
+.status-badge.expired {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.cancelled,
+.status-badge.rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Standard Edit and Delete buttons */
+.main-content .btn-edit {
+  background: #2563eb;
+  color: white;
+}
+
+.main-content .btn-edit:hover {
+  background: #1d4ed8;
+}
+
+.main-content .btn-delete {
+  background: #dc2626;
+  color: white;
+}
+
+.main-content .btn-delete:hover {
+  background: #b91c1c;
+}
+
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.action-buttons button {
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-right: 0 !important;
+}
+
+/* Delete confirmation modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.delete-modal {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.delete-modal-icon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.delete-modal h2 {
+  margin-bottom: 12px;
+  color: #1e293b;
+}
+
+.delete-modal p {
+  color: #475569;
+  margin-bottom: 12px;
+}
+
+.delete-warning {
+  font-size: 13px;
+  color: #dc2626 !important;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.main-content .btn-cancel {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.main-content .btn-cancel:hover {
+  background: #cbd5e1;
+}
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 380px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: toast-slide-in 0.25s ease-out;
+}
+
+.toast-success {
+  background: #16a34a;
+}
+
+.toast-error {
+  background: #dc2626;
+}
+
+.toast-icon {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.toast-close {
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+@keyframes toast-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  gap: 14px;
+}
+
+.loading-spinner {
+  width: 38px;
+  height: 38px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: loading-spin 0.8s linear infinite;
+}
+
+.loading-container p {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 50px 20px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  margin-top: 20px;
+}
+
+.empty-state-icon {
+  font-size: 42px;
+  margin-bottom: 16px;
+}
+
+.empty-state h3 {
+  margin: 0 0 10px;
+  color: #1e293b;
+  font-size: 20px;
+}
+
+.empty-state p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  max-width: 350px;
+}
+
+/* Sortable table headers */
+.main-content .sort-button {
+  background: transparent !important;
+  border: none;
+  color: inherit !important;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.main-content .sort-button:hover {
+  color: #2563eb !important;
+}
+
+.main-content .sort-button:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+
+/* Refresh button */
+.main-content .btn-refresh {
+  background: #0f766e;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.main-content .btn-refresh:hover {
+  background: #115e59;
+}
+
+/* Export CSV button */
+.main-content .btn-export {
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.main-content .btn-export:hover {
+  background: #15803d;
+}
+
+.main-content .btn-export:focus-visible {
+  outline: 2px solid #166534;
+  outline-offset: 3px;
+}
+
+/* Clickable dashboard cards */
+.dashboard-card.clickable-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: 1px solid #e2e8f0;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.dashboard-card.clickable-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-card.clickable-card:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 3px;
+}
+
+.dashboard-card.clickable-card:active {
+  transform: translateY(0);
+}
+
+/* Create Claim form */
+.claim-create-form {
+  display: flex !important;
+  flex-direction: column;
+  align-items: stretch !important;
+  gap: 20px;
+}
+
+.claim-create-form h2 {
+  margin: 0 0 8px;
+}
+
+.claim-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  align-items: start;
+}
+
+.claim-form-grid input,
+.claim-form-grid select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.selected-policy-details {
+  margin: 20px 0;
+  padding: 18px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.selected-policy-details h4 {
+  margin: 0 0 12px;
+  color: #1e293b;
+}
+
+.selected-policy-details p {
+  margin: 6px 0;
+  font-size: 14px;
+  color: #475569;
+}
+
+.claim-create-form .selected-policy-details {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px;
+}
+
+.claim-create-form .selected-policy-details h4 {
+  margin: 0 0 16px;
+  font-size: 17px;
+}
+
+.policy-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+}
+
+.policy-details-grid p {
+  margin: 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+.claim-form-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.main-content .claim-form-actions .btn-create-claim {
+  width: auto;
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.main-content .claim-form-actions .btn-create-claim:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.main-content .claim-form-actions .btn-create-claim:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.claim-form-error {
+  margin: 0;
+  color: #dc2626;
+  font-size: 14px;
+}
+
+/* Claims table */
+.claims-page {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.claims-page .table-container {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+}
+
+.claims-page .management-table {
+  width: 100%;
+  min-width: 1120px;
+  table-layout: auto;
+  border-collapse: collapse;
+  background: white;
+}
+
+.claims-page .management-table th,
+.claims-page .management-table td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 13px;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.claims-page .management-table th {
+  background: #f1f5f9;
+  color: #334155;
+  font-weight: 600;
+}
+
+.claims-page .management-table td {
+  color: #334155;
+}
+
+/* Description column */
+.claims-page .management-table th:nth-child(5),
+.claims-page .management-table td:nth-child(5) {
+  min-width: 170px;
+  max-width: 280px;
+  overflow-wrap: break-word;
+}
+
+/* Status column */
+.claims-page .management-table th:nth-child(6),
+.claims-page .management-table td:nth-child(6) {
+  min-width: 120px;
+}
+
+/* Policy Details column */
+.claims-page .management-table th:nth-child(7),
+.claims-page .management-table td:nth-child(7) {
+  min-width: 230px;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+/* Actions column */
+.claims-page .management-table th:nth-child(8),
+.claims-page .management-table td:nth-child(8) {
+  min-width: 310px;
+}
+
+.claims-page .management-table .status-badge {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Approve and Reject buttons */
+.claims-page .action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.claims-page .action-buttons button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  margin-right: 0 !important;
+  padding: 9px 12px;
+  font-size: 13px;
+}
+
+.main-content .claims-page .btn-approve {
+  background: #16a34a;
+  color: white;
+  border: none;
+}
+
+.main-content .claims-page .btn-approve:hover {
+  background: #15803d;
+}
+
+.main-content .claims-page .btn-reject {
+  background: #dc2626;
+  color: white;
+  border: none;
+}
+
+.main-content .claims-page .btn-reject:hover {
+  background: #b91c1c;
+}
+
+/* More Actions button */
+.claims-page .more-actions-container {
+  display: inline-flex;
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+}
+
+.main-content .claims-page .btn-more-actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.main-content .claims-page .btn-more-actions:hover {
+  background: #1d4ed8;
+}
+
+.main-content .claims-page .btn-more-actions:hover {
+  background: #1d4ed8;
+}
+
+.main-content .claims-page .btn-more-actions:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+/* Portal dropdown - rendered outside table */
+.claim-portal-menu {
+  position: fixed;
+  z-index: 9999;
+  width: 160px;
+  box-sizing: border-box;
+  padding: 6px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+.claim-portal-menu button {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 11px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.claim-portal-menu button:hover {
+  background: #f1f5f9;
+}
+
+.claim-portal-menu .menu-edit {
+  color: #2563eb;
+}
+
+.claim-portal-menu .menu-delete {
+  color: #dc2626;
+}
+
+/* Responsive layout */
+@media (max-width: 900px) {
+  .main-content {
+    min-width: 0;
+  }
+
+  .claim-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content .management-table th,
+  .main-content .management-table td {
+    padding: 10px 8px;
+    font-size: 12px;
+  }
+
+  .claims-page .management-table th,
+  .claims-page .management-table td {
+    padding: 12px 10px;
+  }
+
+  .search-container input {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .claim-form-grid,
+  .policy-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .toast {
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+}
+
+/* Claim form field validation */
+.claim-form-grid .claim-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 0;
+  gap: 6px;
+}
+
+.claim-form-grid .claim-field input,
+.claim-form-grid .claim-field select {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.claim-form-grid .claim-field [aria-invalid="true"] {
+  border-color: #dc2626;
+  background: #fffafa;
+}
+
+.claim-form-grid .field-error {
+  display: block;
+  color: #dc2626;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.claim-form-grid .claim-field input:focus,
+.claim-form-grid .claim-field select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+/* Edit Claim action buttons */
+.claim-create-form .claim-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.claim-create-form .claim-form-actions button {
+  width: auto;
+  min-width: 130px;
+  height: 44px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Cancel button */
+.claim-create-form .claim-form-actions button[type="button"] {
+  background: #e2e8f0;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+}
+
+.claim-create-form .claim-form-actions button[type="button"]:hover {
+  background: #cbd5e1;
+}
+
+/* Policy Management - More Actions */
+
+.policy-more-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #334155;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.policy-more-button:hover,
+.policy-more-button[aria-expanded="true"] {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.policy-actions-menu {
+  width: 160px;
+  padding: 6px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.16);
+}
+
+.policy-actions-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #334155;
+  text-align: left;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.policy-actions-menu button:hover {
+  background: #f1f5f9;
+}
+
+.policy-actions-menu .policy-menu-delete {
+  color: #dc2626;
+}
+
+.policy-actions-menu .policy-menu-delete:hover {
+  background: #fef2f2;
+}
+
+.status-badge.inactive {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.management-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.auth-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  padding: 12px 20px;
+}
+
+.auth-user {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.auth-logout-button {
+  padding: 9px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #dc2626;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-logout-button:hover {
+  background: #b91c1c;
+}
