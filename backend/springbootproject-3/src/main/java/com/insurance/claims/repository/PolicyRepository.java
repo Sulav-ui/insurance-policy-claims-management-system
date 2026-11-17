@@ -1,4 +1,3 @@
-
 package com.insurance.claims.repository;
 
 import com.insurance.claims.entity.Policy;
@@ -35,4 +34,7 @@ public interface PolicyRepository
     int expireActivePolicies(
             @Param("today") LocalDate today
     );
+
+    // Dashboard: Count active policies
+    long countByStatus(String status);
 }

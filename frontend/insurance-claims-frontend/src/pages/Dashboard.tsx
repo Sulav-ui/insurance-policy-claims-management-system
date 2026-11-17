@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getAllPolicies } from "../services/policyService";
 import { getAllClaims } from "../services/claimService";
+import { getToken } from "../services/authService";
 import type { Policy } from "../types/Policy";
 import type { Claim } from "../types/Claim";
 
@@ -9,6 +10,14 @@ type DashboardProps = {
 };
 
 type Range = "3" | "6" | "12" | "all";
+
+interface DashboardSummary {
+  totalPolicies: number;
+  activePolicies: number;
+  totalClaims: number;
+  pendingClaims: number;
+  totalClaimAmount: number;
+}
 
 const currency = (value: number) =>
   new Intl.NumberFormat("en-US", {
@@ -19,11 +28,14 @@ const currency = (value: number) =>
 function Dashboard({ onNavigate }: DashboardProps) {
   const [policies, setPolicies] = useState<Policy[]>([]);
   const [claims, setClaims] = useState<Claim[]>([]);
+  const [summary, setSummary] = useState<DashboardSummary | null>(null);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [refreshKey, setRefreshKey] = useState(0);
   const [range, setRange] = useState<Range>("6");
 
+  // LOAD DASHBOARD DATA
   useEffect(() => {
     let active = true;
 
@@ -32,14 +44,46 @@ function Dashboard({ onNavigate }: DashboardProps) {
       setError("");
 
       try {
-        const [nextPolicies, nextClaims] = await Promise.all([
+        // Get JWT from the existing authentication service.
+        const token = getToken();
+
+        if (!token) {
+          throw new Error("Session expired. Please log in again.");
+        }
+
+        // Load policies, claims, and backend summary.
+        const [nextPolicies, nextClaims, summaryResponse] = await Promise.all([
           getAllPolicies(),
           getAllClaims(),
+          fetch("/api/dashboard/summary", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Accept: "application/json",
+            },
+          }),
         ]);
+
+        if (summaryResponse.status === 401) {
+          throw new Error("Your session has expired. Please log in again.");
+        }
+
+        if (summaryResponse.status === 403) {
+          throw new Error("You do not have permission to view the dashboard.");
+        }
+
+        if (!summaryResponse.ok) {
+          throw new Error(
+            `Unable to load dashboard summary (${summaryResponse.status})`,
+          );
+        }
+
+        const nextSummary: DashboardSummary = await summaryResponse.json();
 
         if (active) {
           setPolicies(nextPolicies);
           setClaims(nextClaims);
+          setSummary(nextSummary);
         }
       } catch (err) {
         if (active) {
@@ -48,7 +92,9 @@ function Dashboard({ onNavigate }: DashboardProps) {
           );
         }
       } finally {
-        if (active) setLoading(false);
+        if (active) {
+          setLoading(false);
+        }
       }
     }
 
@@ -59,9 +105,11 @@ function Dashboard({ onNavigate }: DashboardProps) {
     };
   }, [refreshKey]);
 
+  // POLICY STATUS COUNTS
   const policyCount = (status: string) =>
     policies.filter((p) => p.status?.toUpperCase() === status).length;
 
+  // CLAIM STATUS COUNTS
   const claimCount = (status: string) =>
     claims.filter((c) => c.status?.toUpperCase() === status).length;
 
@@ -69,22 +117,23 @@ function Dashboard({ onNavigate }: DashboardProps) {
   const rejected = claimCount("REJECTED");
   const resolved = approved + rejected;
 
+  // APPROVAL RATE
   const approvalRate = resolved ? (approved / resolved) * 100 : 0;
 
+  // TOTAL POLICY PREMIUMS
   const premiumTotal = policies.reduce(
     (sum, p) => sum + Number(p.premiumAmount || 0),
     0,
   );
 
-  const claimedTotal = claims.reduce(
-    (sum, c) => sum + Number(c.claimAmount || 0),
-    0,
-  );
+  // TOTAL CLAIM AMOUNT FROM SPRING BOOT
+  const claimedTotal = summary ? Number(summary.totalClaimAmount) : 0;
 
   const policyStatuses = ["ACTIVE", "EXPIRED", "CANCELLED"];
 
   const claimStatuses = ["PENDING", "APPROVED", "REJECTED"];
 
+  // RECENT CLAIMS
   const recentClaims = [...claims]
     .sort((a, b) => {
       const delta =
@@ -94,7 +143,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
     })
     .slice(0, 5);
 
-  // Monthly claims trend
+  // MONTHLY CLAIMS TREND
   const today = new Date();
 
   const datedClaims = claims.filter(
@@ -151,6 +200,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
 
   const maxMonthly = Math.max(1, ...months.map((month) => month.count));
 
+  // STATUS CHART COMPONENT
   function statusChart(
     statuses: string[],
     page: "policies" | "claims",
@@ -173,6 +223,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
             >
               <div className="analytics-breakdown-label">
                 <span>{status}</span>
+
                 <strong>
                   {count} ({percentage.toFixed(1)}%)
                 </strong>
@@ -181,7 +232,9 @@ function Dashboard({ onNavigate }: DashboardProps) {
               <div className="analytics-track">
                 <div
                   className={`analytics-fill ${status.toLowerCase()}`}
-                  style={{ width: `${percentage}%` }}
+                  style={{
+                    width: `${percentage}%`,
+                  }}
                 />
               </div>
             </button>
@@ -191,6 +244,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
     );
   }
 
+  // LOADING STATE
   if (loading) {
     return (
       <div className="dashboard" role="status">
@@ -199,10 +253,12 @@ function Dashboard({ onNavigate }: DashboardProps) {
     );
   }
 
+  // ERROR STATE
   if (error) {
     return (
       <div className="dashboard" role="alert">
         <p>{error}</p>
+
         <button type="button" onClick={() => setRefreshKey((n) => n + 1)}>
           Try Again
         </button>
@@ -216,6 +272,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
       <header className="dashboard-header">
         <div>
           <h1>Insurance Dashboard</h1>
+
           <p className="dashboard-subtitle">
             Policies, claims, and performance at a glance
           </p>
@@ -250,7 +307,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
         {[
           {
             title: "Total Policies",
-            count: policies.length,
+            count: summary?.totalPolicies ?? 0,
             icon: "📄",
             iconClass: "policies-icon",
             page: "policies" as const,
@@ -258,7 +315,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
           },
           {
             title: "Active Policies",
-            count: policyCount("ACTIVE"),
+            count: summary?.activePolicies ?? 0,
             icon: "🛡️",
             iconClass: "active-icon",
             page: "policies" as const,
@@ -266,7 +323,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
           },
           {
             title: "Total Claims",
-            count: claims.length,
+            count: summary?.totalClaims ?? 0,
             icon: "📋",
             iconClass: "claims-icon",
             page: "claims" as const,
@@ -274,7 +331,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
           },
           {
             title: "Pending Claims",
-            count: claimCount("PENDING"),
+            count: summary?.pendingClaims ?? 0,
             icon: "⏳",
             iconClass: "pending-icon",
             page: "claims" as const,
@@ -337,7 +394,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
             },
             {
               label: "Pending Claims",
-              count: claimCount("PENDING"),
+              count: summary?.pendingClaims ?? 0,
               page: "claims" as const,
               status: "PENDING",
             },
@@ -359,19 +416,25 @@ function Dashboard({ onNavigate }: DashboardProps) {
       <div className="analytics-financials">
         <div className="analytics-panel">
           <span>Total Policy Premiums</span>
+
           <strong>{currency(premiumTotal)}</strong>
+
           <small>Sum of recorded premiums</small>
         </div>
 
         <div className="analytics-panel">
           <span>Total Claimed Amount</span>
+
           <strong>{currency(claimedTotal)}</strong>
+
           <small>All recorded claim amounts</small>
         </div>
 
         <div className="analytics-panel">
           <span>Claim Approval Rate</span>
+
           <strong>{approvalRate.toFixed(1)}%</strong>
+
           <small>Approved out of resolved claims</small>
         </div>
       </div>
@@ -380,11 +443,13 @@ function Dashboard({ onNavigate }: DashboardProps) {
       <div className="dashboard-charts">
         <section className="claims-chart">
           <h2>Policies by Status</h2>
+
           {statusChart(policyStatuses, "policies", policies.length)}
         </section>
 
         <section className="claims-chart">
           <h2>Claims by Status</h2>
+
           {statusChart(claimStatuses, "claims", claims.length)}
         </section>
       </div>
@@ -394,6 +459,7 @@ function Dashboard({ onNavigate }: DashboardProps) {
         <div className="monthly-chart-toolbar">
           <div>
             <h2>Monthly Claims Trend</h2>
+
             <p>Number of claims submitted each month</p>
           </div>
 
@@ -404,8 +470,11 @@ function Dashboard({ onNavigate }: DashboardProps) {
             onChange={(event) => setRange(event.target.value as Range)}
           >
             <option value="3">Last 3 months</option>
+
             <option value="6">Last 6 months</option>
+
             <option value="12">Last 12 months</option>
+
             <option value="all">All available (up to 60 months)</option>
           </select>
         </div>
@@ -492,8 +561,11 @@ function Dashboard({ onNavigate }: DashboardProps) {
                 {recentClaims.map((claim) => (
                   <tr key={claim.id}>
                     <td>{claim.claimNumber}</td>
+
                     <td>{claim.claimDate}</td>
+
                     <td>{currency(Number(claim.claimAmount))}</td>
+
                     <td>
                       <span
                         className={`claim-status ${claim.status.toLowerCase()}`}

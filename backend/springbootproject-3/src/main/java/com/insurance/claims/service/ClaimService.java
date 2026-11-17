@@ -352,19 +352,7 @@ public class ClaimService {
             );
         }
 
-        // Allow PENDING -> PENDING, APPROVED or REJECTED
-        if ("PENDING".equals(currentStatus)
-                && !List.of(
-                    "PENDING",
-                    "APPROVED",
-                    "REJECTED"
-                ).contains(newStatus)) {
-
-            throw new ResponseStatusException(
-                HttpStatus.BAD_REQUEST,
-                "Invalid claim status transition."
-            );
-        }
+       
 
         // Determine whether history should be recorded
         boolean statusChanged =

@@ -2,7 +2,11 @@
 package com.insurance.claims.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 import com.insurance.claims.entity.Claim;
+
+import java.math.BigDecimal;
 
 public interface ClaimRepository extends JpaRepository<Claim, Long> {
 
@@ -15,4 +19,14 @@ public interface ClaimRepository extends JpaRepository<Claim, Long> {
             String claimNumber,
             Long id
     );
+
+    // Dashboard: Count claims by status
+    long countByStatus(String status);
+
+    // Dashboard: Calculate total claim amount
+    @Query("""
+        SELECT COALESCE(SUM(c.claimAmount), 0)
+        FROM Claim c
+    """)
+    BigDecimal calculateTotalClaimAmount();
 }

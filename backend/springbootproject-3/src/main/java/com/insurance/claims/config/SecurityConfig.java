@@ -133,6 +133,16 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/**")
                     .permitAll()
 
+                // USER and ADMIN can view dashboard
+                .requestMatchers(
+                    HttpMethod.GET,
+                    "/api/dashboard/summary"
+                )
+                    .hasAnyAuthority(
+                        "SCOPE_USER",
+                        "SCOPE_ADMIN"
+                    )
+
                 // USER and ADMIN can view policies
                 .requestMatchers(
                     HttpMethod.GET,
