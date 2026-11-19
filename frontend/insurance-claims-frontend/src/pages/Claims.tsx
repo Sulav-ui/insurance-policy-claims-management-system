@@ -455,7 +455,10 @@ function Claims({ initialStatusFilter = "ALL" }: ClaimsProps) {
 
     function escapeCSV(value: string | number) {
       const text = String(value ?? "");
-      return `"${text.replace(/"/g, '""')}"`;
+
+      const safeText = /^[\s]*[=+\-@\t\r]/.test(text) ? "'" + text : text;
+
+      return `"${safeText.replace(/"/g, '""')}"`;
     }
 
     const rows = sortedClaims.map((claim) => [
