@@ -20,7 +20,7 @@ export default defineConfig({
   reporter: [["list"], ["html", { open: "never" }]],
 
   use: {
-    baseURL: "http://localhost:5173",
+    baseURL: "http://localhost:5174",
 
     headless: true,
 
@@ -51,9 +51,12 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "npm run dev -- --port 5173 --strictPort",
-    url: "http://localhost:5173",
+    command: "npm run dev -- --host localhost --port 5174 --strictPort",
+    url: "http://localhost:5174",
     reuseExistingServer: !process.env.CI,
     timeout: 60000,
+    env: {
+      E2E_TEST: "true",
+    },
   },
 });
